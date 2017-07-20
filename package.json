@@ -16,8 +16,6 @@
   "author": "Toby Miller <tobius.miller@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "underscore": "*",
-    "request": "*",
     "async": "*",
     "natural": "*",
     "WNdb": "*"

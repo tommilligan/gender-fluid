@@ -1,9 +1,5 @@
-
-var _ = require('underscore'),
-    async = require('async'),
-    fs = require('fs'),
-    natural = require('natural'),
-    request = require('request');
+var async = require('async');
+var natural = require('natural');
 
 var inflector = new natural.NounInflector(),
     wordnet = new natural.WordNet();
@@ -135,39 +131,6 @@ var gender = module.exports = {
         return text;
 
     },
-
-    /**
-     * determine if a word could be a noun
-     *
-     * @param {String} word
-     * @param {Function} callback({String} err, {Boolean} result)
-     */
-    /*
-    isPossibleNoun: function(word, callback){
-
-        var possible = false;
-
-        word = inflector.singularize(word);
-
-        if (word){
-
-            wordnet.lookup(word, function(results){
-                for (var i = results.length - 1; i > -1; i -= 1){
-                    if (results[i].pos === 'n'){
-                        possible = true;
-                    }
-                }
-                callback(undefined, possible);
-            });
-
-        } else {
-
-            callback('unable to identify word: ' + word);
-
-        }
-
-    },
-    */
 
     /**
      * neutralize gender specific nominative subjects
