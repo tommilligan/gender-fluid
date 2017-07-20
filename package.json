@@ -16,12 +16,10 @@
   "author": "Toby Miller <tobius.miller@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "async": "*",
-    "natural": "*",
-    "WNdb": "*"
+    "natural": "^0.5.4"
   },
   "devDependencies": {
-    "chai": "*",
-    "mocha": "^2.3.3"
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2"
   }
 }
