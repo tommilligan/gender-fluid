@@ -1,10 +1,8 @@
-var async = require('async');
 var natural = require('natural');
 
 var inflector = new natural.NounInflector(),
-    wordnet = new natural.WordNet();
 
-var gender = module.exports = {
+gender = module.exports = {
 
     /**
      * specific gender neutral patterns
@@ -256,21 +254,20 @@ var gender = module.exports = {
      * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
     neutralize: function(text, callback){
-
         var delegate, filter;
 
         delegate = this;
         filter = (arguments > 2 && filters[arguments[2]] !== undefined) ? arguments[2] : 'they';
 
-        async.waterfall([
-            function(callback){ delegate.neutralizeNominativeSubjects(text, callback); },
-            function(text, callback){ delegate.neutralizeObliqueObjects(text, callback); },
-            function(text, callback){ delegate.neutralizePossessiveDeterminers(text, callback); },
-            function(text, callback){ delegate.neutralizePossessivePronouns(text, callback); },
-            function(text, callback){ delegate.neutralizeReflexives(text, callback); },
-        ], callback);
-
+        delegate.neutralizeNominativeSubjects(text, (err, text) => {
+            delegate.neutralizeObliqueObjects(text, (err, text) => {
+                delegate.neutralizePossessiveDeterminers(text, (err, text) => {
+                    delegate.neutralizePossessivePronouns(text, (err, text) => {
+                        delegate.neutralizeReflexives(text, callback);
+                    })
+                })
+            })
+        })
     }
-
 };
 
