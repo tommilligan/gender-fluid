@@ -1,5 +1,5 @@
-import en from './en.js'
+import en from './en.js';
 
-export default filters = new Map([
-    ['en', en]
-])
+export default {
+    en: en
+}
