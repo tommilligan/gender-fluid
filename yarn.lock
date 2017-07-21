@@ -2,12 +2,6 @@
 # yarn lockfile v1
 
 
-"apparatus@>= 0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/apparatus/-/apparatus-0.0.9.tgz#37dcd25834ad0b651076596291db823eeb1908bd"
-  dependencies:
-    sylvester ">= 0.0.8"
-
 assertion-error@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/assertion-error/-/assertion-error-1.0.2.tgz#13ca515d86206da0bac66e834dd397d87581094c"
@@ -15,10 +9,6 @@ assertion-error@^1.0.1:
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
-
-bindings@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.2.1.tgz#14ad6113812d2d37d72e67b4cacb4bb726505f11"
 
 brace-expansion@^1.1.7:
   version "1.1.8"
@@ -205,20 +195,6 @@ ms@0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
-nan@^2.4.0:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.6.2.tgz#e4ff34e6c95fdfb5aecc08de6596f43605a7db45"
-
-natural@^0.5.4:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/natural/-/natural-0.5.4.tgz#ace41c1655daca2912dfbf99ad7b05314e205f54"
-  dependencies:
-    apparatus ">= 0.0.9"
-    sylvester ">= 0.0.12"
-    underscore ">=1.3.1"
-  optionalDependencies:
-    webworker-threads ">=0.6.2"
-
 once@^1.3.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/once/-/once-1.4.0.tgz#583b1aa775961d4b113ac17d9c50baef9dd76bd1"
@@ -239,10 +215,6 @@ supports-color@3.1.2:
   dependencies:
     has-flag "^1.0.0"
 
-"sylvester@>= 0.0.12", "sylvester@>= 0.0.8":
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/sylvester/-/sylvester-0.0.21.tgz#2987b1ce2bd2f38b0dce2a34388884bfa4400ea7"
-
 type-detect@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-3.0.0.tgz#46d0cc8553abb7b13a352b0d6dea2fd58f2d9b55"
@@ -250,17 +222,6 @@ type-detect@^3.0.0:
 type-detect@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-4.0.3.tgz#0e3f2670b44099b0b46c284d136a7ef49c74c2ea"
-
-underscore@>=1.3.1:
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
-
-webworker-threads@>=0.6.2:
-  version "0.7.12"
-  resolved "https://registry.yarnpkg.com/webworker-threads/-/webworker-threads-0.7.12.tgz#65755480be30b72c8311e9d4e9f29cbe80eb361e"
-  dependencies:
-    bindings "^1.2.1"
-    nan "^2.4.0"
 
 wrappy@1:
   version "1.0.2"

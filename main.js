@@ -1,7 +1,3 @@
-var natural = require('natural');
-
-var inflector = new natural.NounInflector(),
-
 gender = module.exports = {
 
     /**

@@ -15,9 +15,7 @@
   },
   "author": "Toby Miller <tobius.miller@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "natural": "^0.5.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^4.1.0",
     "mocha": "^3.4.2"
