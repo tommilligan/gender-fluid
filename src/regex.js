@@ -17,7 +17,7 @@ var eitherWordPattern = (words) => {
 var safeReplace = (text, find, replace) => {
     const pattern = new RegExp(find, 'gi');
     text = text.replace(pattern, (match, specific) => {
-        if (/[A-Z]/.test(specific.substring(0, 1))){
+        if (/[A-Z]/.test(text.substring(specific, specific + 1))){
             return replace.charAt(0).toUpperCase() + replace.substring(1);
         }
         return replace;
