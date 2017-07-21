@@ -1,12 +1,7 @@
+var chai = require('chai');
+var gender = require('../main');
 
-var assert, chai, gender, withGender, withoutGender;
-
-chai = require('chai');
-gender = require('../main');
-
-chai.Assertion.stackTrace = true;
-
-assert = chai.assert;
+var assert = chai.assert;
 
 describe('require("gender-neutral")', function(){
 
@@ -64,6 +59,7 @@ describe('require("gender-neutral")', function(){
         it('should return neutralized text for gender specific statements', function(done){
             var text = 'I called him on Wednesday to tell him that she laughed at the singing Teddy Bear that he got her. Her eyes were overfilled with joy everytime it said "That is her! That is my new friend!". She really seems to like herself today.';
             gender.neutralize(text, function(err, neutral){
+                // Currently fails as "Her eyes" is not converted to "Their eyes" - posessives are after objects, so they are not handled correctly. Use Stanford Core NLP?
                 assert(neutral === 'I called them on Wednesday to tell them that they laughed at the singing Teddy Bear that they got them. Their eyes were overfilled with joy everytime it said "That is them! That is my new friend!". They really seemed to like themself today.', neutral);
                 done();
             }, 'they');
