@@ -1,11 +1,43 @@
 var rewire = require('rewire')
 var chai = require('chai');
-var gender = rewire('../src/index.js');
+var chaiAsPromised = require('chai-as-promised');
+var Gender = rewire('../src/index.js');
 
+chai.use(chaiAsPromised)
 var expect = chai.expect;
 
-describe('require("gender-neutral")', function(){
+describe('construct new Gender', function(){
+    it('should provide default arguments', function(){
+        var gn = new Gender();
+        expect(gn.locale).to.equal('en');
+        expect(gn.filtrateSetKey).to.equal('they');
+        expect(gn.residueSetKeys).to.have.members(['he', 'she']);
+    });
+    it('should error with unknown filtrateSetKey', function(){
+        var badConstruction = () => {
+            new Gender('qux')
+        }
+        expect(badConstruction).to.throw(/qux/)
+    });
+    it('should error with unknown residueSetKeys', function(){
+        var badConstruction = () => {
+            new Gender('they', ['qux'])
+        }
+        expect(badConstruction).to.throw(/qux/)
+    });
+    it('should error with unknown locale', function(){
+        var badConstruction = () => {
+            new Gender('they', ['he', 'she'], 'qux')
+        }
+        expect(badConstruction).to.throw(/qux/)
+    });
+});
 
+describe('require("gender-neutral")', function(){
+    var gn = undefined;
+    beforeEach(function() {
+        gn = new Gender()
+    });
     describe('gender.neutralizeNominativeSubjects(text, callback, [type])', function(){
         it('should return neutralized nominative subjects for gender specific statement', function(done){
             var text = 'She solved the problem by combining the proper solvents according to the prescribed ratio.';
@@ -21,10 +53,7 @@ describe('require("gender-neutral")', function(){
         it('should return neutralized oblique objects for gender specific statements', function(done){
             var text = 'I spoke to him that morning and told him that the fervor quotient was the way to go.';
             var expected = 'I spoke to them that morning and told them that the fervor quotient was the way to go.';
-            gender.neutralizeObliqueObjects(text, function(err, neutral){
-                expect(neutral).to.equal(expected);
-                done();
-            }, 'they');
+            return gn.neutralizeObliqueObjects(text).to.eventually.equal(expected);
         });
     });
 

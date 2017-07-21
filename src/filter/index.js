@@ -1,5 +1,6 @@
 import en from './en.js';
 
-export default {
+var filters = {
     en: en
 }
+export default filters;

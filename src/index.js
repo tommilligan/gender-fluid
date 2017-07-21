@@ -1,60 +1,63 @@
 import filters from './filter/index.js';
+import {eitherWordPattern, safeReplace} from './regex.js';
 
-var residueSetsRegexString = (residueSets) => {
-    return`\b(${residueSets.join('|')})\b`
-}
+const pronounTypes = ['nominativeSubject', 'obliqueObject', 'possessiveDeterminer', 'possessivePronoun', 'reflexive'];
 
 /**
  * Represents a configured gender-neutralisation instace.
  * @constructor
- * @param {string} filtrateSet - Pronoun set to nuetralize to
- * @param {list} residueSets - Pronoun.sets to neutralize
+ * @param {string} filtrateSetKey - Pronoun set to nuetralize to
+ * @param {list} residueSetKeys - Pronoun.sets to neutralize
  * @param {string} locale - The locale (language). ISO 639-1 2 letter code - PRs welcome for new languages
  */
 module.exports = class Gender {
-    constructor (filtrateSet = 'they', residueSets = ['him', 'her'], locale = 'en') {
+    constructor (filtrateSetKey = 'they', residueSetKeys = ['he', 'she'], locale = 'en') {
         this.locale = locale;
-        this.filtrateSet = filtrateSet;
-        this.residueSets = residueSets;
+        this.filtrateSetKey = filtrateSetKey;
+        this.residueSetKeys = residueSetKeys;
 
         this.patterns = this.generatePatterns();
+        this.filtrates = this.generateFiltrates();
     }
 
     /**
-     * specific gender neutral patterns
-     *
-     * @var {Object}
-     * @name patterns
+     * String regex patters to find
      */
-    generatePatterns () {
+    generatePatterns = () => {
         var patterns = {}
-        const pronounTypes = ['nominativeSubject', 'obliqueObject', 'possessiveDeterminer', 'possessivePronoun', 'reflexive'];
+        const local = filters[this.locale];
+
+        if (local === undefined) {
+            throw new Error(`Unknown locale '${this.locale}`)
+        }
+
         pronounTypes.map(pronounType => {
-            const local = filters[this.locale];
-            var residues = residueSets.map(residueSet => {
-                return local[residueSet][pronounType];
+            var residues = this.residueSetKeys.map(residueSetKey => {
+                try {
+                    return local[residueSetKey][pronounType];
+                } catch (ex) {
+                    throw new Error(`Could not load '${pronounType}' from set '${residueSetKey}'`);
+                }
             })
-            patterns[pronounType] = residueSetsRegexString(residues);
+            patterns[pronounType] = eitherWordPattern(residues);
         })
         return patterns;
     }
 
     /**
-     * perform a safe regexp replacement that preserves capitalization
-     *
-     * @param {String} text
-     * @param {RegExp} find
-     * @param {String} replace
+     * Strings to replace in text
      */
-    safeReplace = (text, find, replace) => {
-
-        text = text.replace(find, function(match, specific){
-            if (/[A-Z]/.test(specific.substring(0, 1))){
-                return replace.charAt(0).toUpperCase() + replace.substring(1);
+    generateFiltrates = () => {
+        var filtrates = {}
+        pronounTypes.map(pronounType => {
+            const local = filters[this.locale];
+            try {
+                filtrates[pronounType] = local[this.filtrateSetKey][pronounType];
+            } catch (ex) {
+                throw new Error(`Could not load '${pronounType}' from set '${this.filtrateSetKey}'`);
             }
-            return replace;
-        });
-        return text;
+        })
+        return filtrates;
     }
 
     /**
@@ -63,8 +66,6 @@ module.exports = class Gender {
      * example: He/She laughed
      *
      * @param {String} text
-     * @param {Function} callback({String} err, {String} text)
-     * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
     neutralizeNominativeSubjects = (text, callback) => {
         var filter, past, present;
@@ -89,20 +90,13 @@ module.exports = class Gender {
      * example: I called him/her
      *
      * @param {String} text
-     * @param {Function} callback({String} err, {String} text)
      * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
-    neutralizeObliqueObjects = (text, callback) => {
-
-        var filter;
-
-        // terms
-        filter = (arguments > 2 && filters[arguments[2]] !== undefined) ? arguments[2] : 'they';
-        text = this.safeReplace(text, this.patterns.obliqueObject, this.filters[filter].obliqueObject);
-
-        // finish
-        callback(undefined, text);
-
+    neutralizeObliqueObjects = (text) => {
+        return new Promise((resolve, reject) => {
+            const text = safeReplace(text, this.patterns.obliqueObject, this.filtrates.obliqueObject);
+            resolve(text)
+        });
     }
 
     /**
@@ -111,7 +105,7 @@ module.exports = class Gender {
      * example: His/Her eyes gleam
      *
      * @param {String} text
-     * @param {Function} callback({String} err, {String} text)
+
      * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
     neutralizePossessiveDeterminers = (text, callback) => {
@@ -133,7 +127,7 @@ module.exports = class Gender {
      * example: That is his/hers
      *
      * @param {String} text
-     * @param {Function} callback({String} err, {String} text)
+
      * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
     neutralizePossessivePronouns = (text, callback) => {
@@ -155,7 +149,7 @@ module.exports = class Gender {
      * example: He/She likes himself/herself
      *
      * @param {String} text
-     * @param {Function} callback({String} err, {String} text)
+
      * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
     neutralizeReflexives = (text, callback) => {
@@ -175,7 +169,7 @@ module.exports = class Gender {
      * neutralize gender specific pronouns
      *
      * @param {String} text
-     * @param {Function} callback({String} err, {String} text)
+
      * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
     neutralize = (text, filter = 'they') => {

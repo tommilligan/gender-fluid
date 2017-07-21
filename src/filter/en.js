@@ -1,4 +1,4 @@
-export default {
+const en = {
     he: {
         nominativeSubject: 'he',
         obliqueObject: 'him',
@@ -98,3 +98,4 @@ export default {
         reflexive: 'zhimself'
     }
 }
+export default en;
