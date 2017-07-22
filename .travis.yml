@@ -14,6 +14,8 @@ script:
   - npm run coverage
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-deploy:
+branches:
+  except:
+    - /v\d+\.\d+\.\d+/
 notifications:
   email: false
