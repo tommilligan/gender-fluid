@@ -97,5 +97,5 @@ const en = {
         possessivePronoun: 'zhers',
         reflexive: 'zhimself'
     }
-}
+};
 export default en;

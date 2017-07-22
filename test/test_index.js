@@ -1,9 +1,9 @@
-var rewire = require('rewire')
+var rewire = require('rewire');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 var Gender = rewire('../src/index.js');
 
-chai.use(chaiAsPromised)
+chai.use(chaiAsPromised);
 var expect = chai.expect;
 
 describe('index.js', function(){
@@ -17,28 +17,28 @@ describe('index.js', function(){
             });
             it('should error with unknown filtrateSetKey', function(){
                 var badConstruction = () => {
-                    new Gender('qux')
-                }
-                expect(badConstruction).to.throw(/qux/)
+                    new Gender('qux');
+                };
+                expect(badConstruction).to.throw(/qux/);
             });
             it('should error with unknown residueSetKeys', function(){
                 var badConstruction = () => {
-                    new Gender('they', ['qux'])
-                }
-                expect(badConstruction).to.throw(/qux/)
+                    new Gender('they', ['qux']);
+                };
+                expect(badConstruction).to.throw(/qux/);
             });
             it('should error with unknown locale', function(){
                 var badConstruction = () => {
-                    new Gender('they', ['he', 'she'], 'qux')
-                }
-                expect(badConstruction).to.throw(/qux/)
+                    new Gender('they', ['he', 'she'], 'qux');
+                };
+                expect(badConstruction).to.throw(/qux/);
             });
         });
 
         describe('individual neutralizations', function(){
             var gn = undefined;
             beforeEach(function() {
-                gn = new Gender()
+                gn = new Gender();
             });
             describe('neutralizeNominativeSubjects', function(){
                 it('should return neutralized nominative subjects for gender specific statement', function(){
@@ -94,13 +94,13 @@ describe('index.js', function(){
                 it('should neutralize multiple pronoun type in sequence', function(){
                     // Currently fails as "Her eyes" is not converted to "Their eyes" - posessives are after objects, so they are not handled correctly. Use Stanford Core NLP?
                     var text = 'I called him on Wednesday to tell her the plans. His reply was typical - that she\'d take care of herself.';
-                    var expected = 'I called them on Wednesday to tell them the plans. Their reply was typical - they\'d take care of themself.'
+                    var expected = 'I called them on Wednesday to tell them the plans. Their reply was typical - they\'d take care of themself.';
                     return expect(gn.neutralize(text)).to.eventually.not.equal(expected);
                 });
                 it('should fail to differentiate posessive and objective pronouns', function(){
                     // Currently fails as "Her eyes" is not converted to "Their eyes" - posessives are after objects, so they are not handled correctly. Use Stanford Core NLP?
                     var text = 'I called him on Wednesday to tell him that she laughed at the singing Teddy Bear that he got her. Her eyes were overfilled with joy everytime it said "That is her! That is my new friend!". She really seems to like herself today.';
-                    var expected = 'I called them on Wednesday to tell them that they laughed at the singing Teddy Bear that they got them. Their eyes were overfilled with joy everytime it said "That is them! That is my new friend!". They really seemed to like themself today.'
+                    var expected = 'I called them on Wednesday to tell them that they laughed at the singing Teddy Bear that they got them. Their eyes were overfilled with joy everytime it said "That is them! That is my new friend!". They really seemed to like themself today.';
                     return expect(gn.neutralize(text)).to.eventually.not.equal(expected);
                 });
             });

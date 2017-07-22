@@ -1,14 +1,14 @@
-var rewire = require('rewire')
+var rewire = require('rewire');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 var regex = rewire('../src/regex.js');
 
-chai.use(chaiAsPromised)
+chai.use(chaiAsPromised);
 var expect = chai.expect;
 
 describe('regex.js', function(){
     describe('eitherWordPattern', function(){
-    it('should work for one word', function(){
+        it('should work for one word', function(){
             expect(regex.eitherWordPattern(['foo'])).to.equal('\\b(?:foo)\\b');
         });
         it('should work for multiple words', function(){
