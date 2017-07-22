@@ -9,7 +9,8 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register -R spec",
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register -R dot test/",
-    "compile": "babel src -d lib"
+    "compile": "babel src -d lib",
+    "postinstall": "postinstall-build lib --script compile"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,9 @@
   },
   "author": "Toby Miller <tobius.miller@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "postinstall-build": "^5.0.1"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
