@@ -1,7 +1,6 @@
-var rewire = require('rewire');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
-var regex = rewire('../src/regex.js');
+var regex = require('../src/regex.js');
 
 chai.use(chaiAsPromised);
 var expect = chai.expect;

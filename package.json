@@ -29,7 +29,6 @@
     "eslint-plugin-mocha": "^4.11.0",
     "istanbul": "1.0.0-alpha.2",
     "mocha": "^3.4.2",
-    "mocha-eslint": "^4.0.0",
-    "rewire": "^2.5.2"
+    "mocha-eslint": "^4.0.0"
   }
 }

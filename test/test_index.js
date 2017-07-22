@@ -1,7 +1,6 @@
-var rewire = require('rewire');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
-var Gender = rewire('../src/index.js');
+var Gender = require('../src/index.js');
 
 chai.use(chaiAsPromised);
 var expect = chai.expect;
