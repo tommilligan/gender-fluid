@@ -24,11 +24,11 @@ module.exports = class Gender {
      * String regex patters to find
      */
     generatePatterns = () => {
-        var patterns = {}
+        var patterns = {};
         const local = filters[this.locale];
 
         if (local === undefined) {
-            throw new Error(`Unknown locale '${this.locale}`)
+            throw new Error(`Unknown locale '${this.locale}`);
         }
 
         pronounTypes.map(pronounType => {
@@ -38,9 +38,9 @@ module.exports = class Gender {
                 } catch (ex) {
                     throw new Error(`Could not load '${pronounType}' from set '${residueSetKey}'`);
                 }
-            })
+            });
             patterns[pronounType] = eitherWordPattern(residues);
-        })
+        });
         return patterns;
     }
 
@@ -48,7 +48,7 @@ module.exports = class Gender {
      * Strings to replace in text
      */
     generateFiltrates = () => {
-        var filtrates = {}
+        var filtrates = {};
         pronounTypes.map(pronounType => {
             const local = filters[this.locale];
             try {
@@ -56,7 +56,7 @@ module.exports = class Gender {
             } catch (ex) {
                 throw new Error(`Could not load '${pronounType}' from set '${this.filtrateSetKey}'`);
             }
-        })
+        });
         return filtrates;
     }
 
@@ -68,8 +68,8 @@ module.exports = class Gender {
      * @param {String} text
      */
     neutralizeNominativeSubjects = (text) => {
-        return new Promise((resolve, reject) => {
-            var filtrate = this.filtrates.nominativeSubject
+        return new Promise((resolve) => {
+            var filtrate = this.filtrates.nominativeSubject;
             var neutralizedText = safeReplace(text, this.patterns.nominativeSubject, filtrate);
             var past = new RegExp(`\\b(${filtrate}) was\\b`, 'gi');
             var present = new RegExp(`\\b(${filtrate}) is\\b`, 'gi');
@@ -87,7 +87,7 @@ module.exports = class Gender {
      * @param {String} text
      */
     neutralizeObliqueObjects = (text) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             var neutralizedText = safeReplace(text, this.patterns.obliqueObject, this.filtrates.obliqueObject);
             resolve(neutralizedText);
         });
@@ -101,7 +101,7 @@ module.exports = class Gender {
      * @param {String} text
      */
     neutralizePossessiveDeterminers = (text) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             var neutralizedText = safeReplace(text, this.patterns.possessiveDeterminer, this.filtrates.possessiveDeterminer);
             resolve(neutralizedText);
         });
@@ -115,7 +115,7 @@ module.exports = class Gender {
      * @param {String} text
      */
     neutralizePossessivePronouns = (text) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             var neutralizedText = safeReplace(text, this.patterns.possessivePronoun, this.filtrates.possessivePronoun);
             resolve(neutralizedText);
         });
@@ -129,7 +129,7 @@ module.exports = class Gender {
      * @param {String} text
      */
     neutralizeReflexives = (text) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             var neutralizedText = safeReplace(text, this.patterns.reflexive, this.filtrates.reflexive);
             resolve(neutralizedText);
         });

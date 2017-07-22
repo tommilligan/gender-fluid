@@ -1,4 +1,5 @@
 module.exports = {
+    "parser": "babel-eslint",
     "env": {
         "es6": true,
         "node": true,
@@ -10,6 +11,7 @@ module.exports = {
         "ecmaVersion": 6
     },
     "rules": {
+        "strict": 0,
         "indent": [
             "error",
             4
