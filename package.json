@@ -2,14 +2,14 @@
   "name": "gender-neutral",
   "version": "0.1.0",
   "description": "A node module that neutralizes gender specific text.",
-  "main": "./dist/index.js",
+  "main": "./lib/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register -R spec",
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register -R dot test/",
-    "build": "babel src --out-dir dist"
+    "compile": "babel src -d lib"
   },
   "repository": {
     "type": "git",
