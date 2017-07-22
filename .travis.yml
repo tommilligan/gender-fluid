@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "node"
+install:
+  - yarn install
+script:
+  - npm run coverage
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -sSL https://download.sourceclear.com/ci.sh)
+deploy:
+  - provider: npm
+    email: "code@tommilligan.net"
+    api_key: "$NPM_API_KEY"
+    on:
+      branch: master
+      tags: true
+notifications:
+  email: false

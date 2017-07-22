@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register -R spec",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register -R dot test/",
     "build": "babel src --out-dir dist"
   },
   "repository": {
@@ -24,7 +25,10 @@
     "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.0",
     "chai-as-promised": "^7.1.1",
+    "eslint-plugin-mocha": "^4.11.0",
+    "istanbul": "1.0.0-alpha.2",
     "mocha": "^3.4.2",
+    "mocha-eslint": "^4.0.0",
     "rewire": "^2.5.2"
   }
 }
