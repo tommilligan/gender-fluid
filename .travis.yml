@@ -1,8 +1,15 @@
 language: node_js
 node_js:
   - "node"
+  - "iojs"
+  - "7"
+  - "6"
+  - "5"
+  - "4"
 install:
   - yarn install
+before_script:
+  - npm run compile
 script:
   - npm run coverage
 after_success:
