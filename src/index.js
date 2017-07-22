@@ -67,21 +67,16 @@ module.exports = class Gender {
      *
      * @param {String} text
      */
-    neutralizeNominativeSubjects = (text, callback) => {
-        var filter, past, present;
-
-        // terms
-        filter = (arguments > 2 && filters[arguments[2]] !== undefined) ? arguments[2] : 'they';
-        text = this.safeReplace(text, this.patterns.nominativeSubject, this.filters[filter].nominativeSubject);
-
-        // tense
-        past = new RegExp('\\b(' + this.filters[filter].nominativeSubject + ') +was\\b', 'i');
-        present = new RegExp('\\b(' + this.filters[filter].nominativeSubject + ') +is\\b', 'i');
-        text = text.replace(past, '$1 were');
-        text = text.replace(present, '$1 are');
-
-        // finish
-        callback(undefined, text);
+    neutralizeNominativeSubjects = (text) => {
+        return new Promise((resolve, reject) => {
+            var filtrate = this.filtrates.nominativeSubject
+            var neutralizedText = safeReplace(text, this.patterns.nominativeSubject, filtrate);
+            var past = new RegExp(`\\b(${filtrate}) was\\b`, 'gi');
+            var present = new RegExp(`\\b(${filtrate}) is\\b`, 'gi');
+            neutralizedText = neutralizedText.replace(past, '$1 were');
+            neutralizedText = neutralizedText.replace(present, '$1 are');
+            resolve(neutralizedText);
+        });
     }
 
     /**
@@ -90,12 +85,11 @@ module.exports = class Gender {
      * example: I called him/her
      *
      * @param {String} text
-     * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
     neutralizeObliqueObjects = (text) => {
         return new Promise((resolve, reject) => {
-            const text = safeReplace(text, this.patterns.obliqueObject, this.filtrates.obliqueObject);
-            resolve(text)
+            var neutralizedText = safeReplace(text, this.patterns.obliqueObject, this.filtrates.obliqueObject);
+            resolve(neutralizedText);
         });
     }
 
@@ -105,20 +99,12 @@ module.exports = class Gender {
      * example: His/Her eyes gleam
      *
      * @param {String} text
-
-     * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
-    neutralizePossessiveDeterminers = (text, callback) => {
-
-        var filter;
-
-        // terms
-        filter = (arguments > 2 && filters[arguments[2]] !== undefined) ? arguments[2] : 'they';
-        text = this.safeReplace(text, this.patterns.possessiveDeterminer, this.filters[filter].possessiveDeterminer);
-
-        // finish
-        callback(undefined, text);
-
+    neutralizePossessiveDeterminers = (text) => {
+        return new Promise((resolve, reject) => {
+            var neutralizedText = safeReplace(text, this.patterns.possessiveDeterminer, this.filtrates.possessiveDeterminer);
+            resolve(neutralizedText);
+        });
     }
 
     /**
@@ -127,20 +113,12 @@ module.exports = class Gender {
      * example: That is his/hers
      *
      * @param {String} text
-
-     * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
-    neutralizePossessivePronouns = (text, callback) => {
-
-        var filter;
-
-        // terms
-        filter = (arguments > 2 && filters[arguments[2]] !== undefined) ? arguments[2] : 'they';
-        text = this.safeReplace(text, this.patterns.possessivePronoun, this.filters[filter].possessivePronoun);
-
-        // finish
-        callback(undefined, text);
-
+    neutralizePossessivePronouns = (text) => {
+        return new Promise((resolve, reject) => {
+            var neutralizedText = safeReplace(text, this.patterns.possessivePronoun, this.filtrates.possessivePronoun);
+            resolve(neutralizedText);
+        });
     }
 
     /**
@@ -149,42 +127,32 @@ module.exports = class Gender {
      * example: He/She likes himself/herself
      *
      * @param {String} text
-
-     * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
-    neutralizeReflexives = (text, callback) => {
-
-        var filter;
-
-        // terms
-        filter = (arguments > 2 && filters[arguments[2]] !== undefined) ? arguments[2] : 'they';
-        text = this.safeReplace(text, this.patterns.reflexive, this.filters[filter].reflexive);
-
-        // finish
-        callback(undefined, text);
-
+    neutralizeReflexives = (text) => {
+        return new Promise((resolve, reject) => {
+            var neutralizedText = safeReplace(text, this.patterns.reflexive, this.filtrates.reflexive);
+            resolve(neutralizedText);
+        });
     }
 
     /**
      * neutralize gender specific pronouns
      *
      * @param {String} text
-
-     * @param {String} [filter=they] (they|e|ey|tho|hu|per|thon|jee|ve|xe|ze|zhe)
      */
-    neutralize = (text, filter = 'they') => {
+    neutralize = (text) => {
         return this.neutralizeNominativeSubjects(text)
-            .then(text => {
-                return this.neutralizeObliqueObjects(text);
+            .then(intermediateText => {
+                return this.neutralizeObliqueObjects(intermediateText);
             })
-            .then(text => {
-                return this.neutralizePossessiveDeterminers(text);
+            .then(intermediateText => {
+                return this.neutralizePossessiveDeterminers(intermediateText);
             })
-            .then(text => {
-                return this.neutralizePossessivePronouns(text);
+            .then(intermediateText => {
+                return this.neutralizePossessivePronouns(intermediateText);
             })
-            .then(text => {
-                return this.neutralizeReflexives(text, callback);
+            .then(intermediateText => {
+                return this.neutralizeReflexives(intermediateText);
             });
     }
 };

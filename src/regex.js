@@ -4,7 +4,7 @@
  * @param {Array} words
  */
 var eitherWordPattern = (words) => {
-    return`\b(${words.join('|')})\b`
+    return `\\b(?:${words.join('|')})\\b`
 };
 
 /**
@@ -16,13 +16,15 @@ var eitherWordPattern = (words) => {
  */
 var safeReplace = (text, find, replace) => {
     const pattern = new RegExp(find, 'gi');
-    text = text.replace(pattern, (match, specific) => {
-        if (/[A-Z]/.test(text.substring(specific, specific + 1))){
-            return replace.charAt(0).toUpperCase() + replace.substring(1);
+    var replacedText = text.replace(pattern, (match, specific) => {
+        var isTextCapitalized = /[A-Z]/.test(text.substring(specific, specific + 1));
+        var sensitiveReplace = replace
+        if (isTextCapitalized === true) {
+            sensitiveReplace = replace.charAt(0).toUpperCase() + replace.substring(1);
         }
-        return replace;
+        return sensitiveReplace;
     });
-    return text;
+    return replacedText;
 };
 
 export {eitherWordPattern, safeReplace};
