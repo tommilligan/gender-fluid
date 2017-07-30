@@ -4,13 +4,13 @@ import {eitherWordPattern, safeReplace} from './regex.js';
 const pronounTypes = ['nominativeSubject', 'obliqueObject', 'possessiveDeterminer', 'possessivePronoun', 'reflexive'];
 
 /**
- * Represents a configured gender-neutralisation instace.
+ * Represents a configured gender-fluidisation instace.
  * @constructor
- * @param {string} filtrateSetKey - Pronoun set to nuetralize to
- * @param {list} residueSetKeys - Pronoun.sets to neutralize
+ * @param {string} filtrateSetKey - Pronoun set to fluidize to
+ * @param {list} residueSetKeys - Pronoun.sets to fluidize
  * @param {string} locale - The locale (language). ISO 639-1 2 letter code - PRs welcome for new languages
  */
-module.exports = class Gender {
+module.exports = class GenderFluid {
     constructor (filtrateSetKey = 'they', residueSetKeys = ['he', 'she'], locale = 'en') {
         this.locale = locale;
         this.filtrateSetKey = filtrateSetKey;
@@ -61,98 +61,98 @@ module.exports = class Gender {
     }
 
     /**
-     * neutralize gender specific nominative subjects
+     * fluidize gender specific nominative subjects
      *
      * example: He/She laughed
      *
      * @param {String} text
      */
-    neutralizeNominativeSubjects = (text) => {
+    fluidizeNominativeSubjects = (text) => {
         return new Promise((resolve) => {
             var filtrate = this.filtrates.nominativeSubject;
-            var neutralizedText = safeReplace(text, this.patterns.nominativeSubject, filtrate);
+            var fluidizedText = safeReplace(text, this.patterns.nominativeSubject, filtrate);
             var past = new RegExp(`\\b(${filtrate}) was\\b`, 'gi');
             var present = new RegExp(`\\b(${filtrate}) is\\b`, 'gi');
-            neutralizedText = neutralizedText.replace(past, '$1 were');
-            neutralizedText = neutralizedText.replace(present, '$1 are');
-            resolve(neutralizedText);
+            fluidizedText = fluidizedText.replace(past, '$1 were');
+            fluidizedText = fluidizedText.replace(present, '$1 are');
+            resolve(fluidizedText);
         });
     }
 
     /**
-     * neutralize gender specific oblique objects
+     * fluidize gender specific oblique objects
      *
      * example: I called him/her
      *
      * @param {String} text
      */
-    neutralizeObliqueObjects = (text) => {
+    fluidizeObliqueObjects = (text) => {
         return new Promise((resolve) => {
-            var neutralizedText = safeReplace(text, this.patterns.obliqueObject, this.filtrates.obliqueObject);
-            resolve(neutralizedText);
+            var fluidizedText = safeReplace(text, this.patterns.obliqueObject, this.filtrates.obliqueObject);
+            resolve(fluidizedText);
         });
     }
 
     /**
-     * neutralize gender specific possessive determiners
+     * fluidize gender specific possessive determiners
      *
      * example: His/Her eyes gleam
      *
      * @param {String} text
      */
-    neutralizePossessiveDeterminers = (text) => {
+    fluidizePossessiveDeterminers = (text) => {
         return new Promise((resolve) => {
-            var neutralizedText = safeReplace(text, this.patterns.possessiveDeterminer, this.filtrates.possessiveDeterminer);
-            resolve(neutralizedText);
+            var fluidizedText = safeReplace(text, this.patterns.possessiveDeterminer, this.filtrates.possessiveDeterminer);
+            resolve(fluidizedText);
         });
     }
 
     /**
-     * neutralize gender specific possessive pronouns
+     * fluidize gender specific possessive pronouns
      *
      * example: That is his/hers
      *
      * @param {String} text
      */
-    neutralizePossessivePronouns = (text) => {
+    fluidizePossessivePronouns = (text) => {
         return new Promise((resolve) => {
-            var neutralizedText = safeReplace(text, this.patterns.possessivePronoun, this.filtrates.possessivePronoun);
-            resolve(neutralizedText);
+            var fluidizedText = safeReplace(text, this.patterns.possessivePronoun, this.filtrates.possessivePronoun);
+            resolve(fluidizedText);
         });
     }
 
     /**
-     * neutralize gender specific reflexives
+     * fluidize gender specific reflexives
      *
      * example: He/She likes himself/herself
      *
      * @param {String} text
      */
-    neutralizeReflexives = (text) => {
+    fluidizeReflexives = (text) => {
         return new Promise((resolve) => {
-            var neutralizedText = safeReplace(text, this.patterns.reflexive, this.filtrates.reflexive);
-            resolve(neutralizedText);
+            var fluidizedText = safeReplace(text, this.patterns.reflexive, this.filtrates.reflexive);
+            resolve(fluidizedText);
         });
     }
 
     /**
-     * neutralize gender specific pronouns
+     * fluidize gender specific pronouns
      *
      * @param {String} text
      */
-    neutralize = (text) => {
-        return this.neutralizeNominativeSubjects(text)
+    fluidize = (text) => {
+        return this.fluidizeNominativeSubjects(text)
             .then(intermediateText => {
-                return this.neutralizeObliqueObjects(intermediateText);
+                return this.fluidizeObliqueObjects(intermediateText);
             })
             .then(intermediateText => {
-                return this.neutralizePossessiveDeterminers(intermediateText);
+                return this.fluidizePossessiveDeterminers(intermediateText);
             })
             .then(intermediateText => {
-                return this.neutralizePossessivePronouns(intermediateText);
+                return this.fluidizePossessivePronouns(intermediateText);
             })
             .then(intermediateText => {
-                return this.neutralizeReflexives(intermediateText);
+                return this.fluidizeReflexives(intermediateText);
             });
     }
 };

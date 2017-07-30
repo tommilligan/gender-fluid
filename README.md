@@ -1,42 +1,42 @@
 
-# gender-neutral
+# gender-fluid
 
-[![npm](https://img.shields.io/npm/v/gender-neutral.svg)](https://www.npmjs.com/package/gender-neutral)
-[![license](https://img.shields.io/github/license/tommilligan/gender-neutral.svg)]()
+[![npm](https://img.shields.io/npm/v/gender-fluid.svg)](https://www.npmjs.com/package/gender-fluid)
+[![license](https://img.shields.io/github/license/tommilligan/gender-fluid.svg)]()
 
-[![Travis branch](https://img.shields.io/travis/tommilligan/gender-neutral/develop.svg)](https://travis-ci.org/tommilligan/gender-neutral)
-[![codecov](https://codecov.io/gh/tommilligan/gender-neutral/branch/develop/graph/badge.svg)](https://codecov.io/gh/tommilligan/gender-neutral)
-[![David](https://img.shields.io/david/tommilligan/gender-neutral.svg)](https://david-dm.org/tommilligan/gender-neutral)
+[![Travis branch](https://img.shields.io/travis/tommilligan/gender-fluid/develop.svg)](https://travis-ci.org/tommilligan/gender-fluid)
+[![codecov](https://codecov.io/gh/tommilligan/gender-fluid/branch/develop/graph/badge.svg)](https://codecov.io/gh/tommilligan/gender-fluid)
+[![David](https://img.shields.io/david/tommilligan/gender-fluid.svg)](https://david-dm.org/tommilligan/gender-fluid)
 
-A node module that neutralizes gender specific text.
+A node module that fluidizes gender specific text.
 
 ## Install
 
 ```bash
-yarn add git+https://github.com/tommilligan/gender-neutral#develop
+yarn add gender-fluid
 ```
 
 ## Usage
 
 ```javascript
-var Gender = require('gender-neutral');
+var GenderFluid = require('gender-fluid');
 
 // setup configuration
-var gn = new Gender()
+var gender = new GenderFluid()
 
 // defaults are
-var gn = new Gender(
-    'they',           // form to neutralize to
-    ['he', 'she'],    // forms to neutralize from
+var gender = new GenderFluid(
+    'they',           // form to fluidize to
+    ['he', 'she'],    // forms to fluidize from
     'en'              // locale
 )
 
-// let's neutralize some gender specific content
+// let's fluidize some gender specific content
 // ES6 syntax
 var specific = 'I called him on Wednesday to tell him the good news.';
-gn.neutralize(specific)
-    .then(neutral => {
-        console.log(neutral)  // I called them on Wednesday to tell them the good news.
+gender.fluidize(specific)
+    .then(fluid => {
+        console.log(fluid)  // I called them on Wednesday to tell them the good news.
     });
 ```
 
@@ -44,10 +44,10 @@ Conversion is possible in any direction (although quality of grammer will vary).
 ```javascript
 // ES2015 syntax
 var specific = 'He should talk to them about feminism.';
-var gn = new Gender('she', ['he', 'they']);
-gn.neutralize(specific)
-    .then(function(neutral){
-        console.log(neutral)
+var gender = new GenderFluid('she', ['he', 'they']);
+gender.fluidize(specific)
+    .then(function(fluid){
+        console.log(fluid)
     });
 ```
 
