@@ -1,7 +1,7 @@
 import filters from './filter/index.js';
 import {eitherWordPattern, safeReplace} from './regex.js';
 
-const pronounTypes = ['nominativeSubject', 'obliqueObject', 'possessiveDeterminer', 'possessivePronoun', 'reflexive'];
+const pronounTypes = ['nominativeSubject', 'obliqueObject', 'possessiveDeterminer', 'possessivePronoun', 'reflexive', 'generic', 'honorific', 'junior'];
 
 /**
  * Represents a configured gender-fluidisation instace.
@@ -136,6 +136,48 @@ module.exports = class GenderFluid {
     }
 
     /**
+     * fluidize gender specific generics
+     *
+     * example: Go and find a man/woman.
+     *
+     * @param {String} text
+     */
+    fluidizeGenerics = (text) => {
+        return new Promise((resolve) => {
+            var fluidizedText = safeReplace(text, this.patterns.generic, this.filtrates.generic);
+            resolve(fluidizedText);
+        });
+    }
+
+    /**
+     * fluidize gender specific honorifics
+     *
+     * example: Good morning, Mr/Mrs/Miss/Ms Smith.
+     *
+     * @param {String} text
+     */
+    fluidizeHonorifics = (text) => {
+        return new Promise((resolve) => {
+            var fluidizedText = safeReplace(text, this.patterns.honorific, this.filtrates.honorific);
+            resolve(fluidizedText);
+        });
+    }
+
+    /**
+     * fluidize gender specific junior generics
+     *
+     * example: Play with the boy/girl.
+     *
+     * @param {String} text
+     */
+    fluidizeJuniors = (text) => {
+        return new Promise((resolve) => {
+            var fluidizedText = safeReplace(text, this.patterns.junior, this.filtrates.junior);
+            resolve(fluidizedText);
+        });
+    }
+
+    /**
      * fluidize gender specific pronouns
      *
      * @param {String} text
@@ -153,6 +195,15 @@ module.exports = class GenderFluid {
             })
             .then(intermediateText => {
                 return this.fluidizeReflexives(intermediateText);
+            })
+            .then(intermediateText => {
+                return this.fluidizeGenerics(intermediateText);
+            })
+            .then(intermediateText => {
+                return this.fluidizeHonorifics(intermediateText);
+            })
+            .then(intermediateText => {
+                return this.fluidizeJuniors(intermediateText);
             });
     }
 };

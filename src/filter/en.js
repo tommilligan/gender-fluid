@@ -4,98 +4,140 @@ const en = {
         obliqueObject: 'him',
         possessiveDeterminer: 'his',
         possessivePronoun: 'his',
-        reflexive: 'himself'
+        reflexive: 'himself',
+        generic: 'man',
+        honorific: 'mr',
+        junior: 'boy',
     },
     she: {
         nominativeSubject: 'she',
         obliqueObject: 'her',
         possessiveDeterminer: 'her',
         possessivePronoun: 'hers',
-        reflexive: 'herself'
+        reflexive: 'herself',
+        generic: 'woman',
+        honorific: 'ms',
+        junior: 'girl',
     },
     they: {
         nominativeSubject: 'they',
         obliqueObject: 'them',
         possessiveDeterminer: 'their',
         possessivePronoun: 'theirs',
-        reflexive: 'themself'
+        reflexive: 'themself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     e: {
         nominativeSubject: 'e',
         obliqueObject: 'em',
         possessiveDeterminer: 'eir',
         possessivePronoun: 'eirs',
-        reflexive: 'eirself'
+        reflexive: 'eirself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     ey: {
         nominativeSubject: 'ey',
         obliqueObject: 'em',
         possessiveDeterminer: 'eir',
         possessivePronoun: 'eirs',
-        reflexive: 'emself'
+        reflexive: 'emself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     tho: {
         nominativeSubject: 'tho',
         obliqueObject: 'thor',
         possessiveDeterminer: 'thors',
         possessivePronoun: 'thor',
-        reflexive: 'thongself'
+        reflexive: 'thongself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     hu: {
         nominativeSubject: 'hu',
         obliqueObject: 'hum',
         possessiveDeterminer: 'hus',
         possessivePronoun: 'hus',
-        reflexive: 'humself'
+        reflexive: 'humself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     per: {
         nominativeSubject: 'per',
         obliqueObject: 'per',
         possessiveDeterminer: 'per',
         possessivePronoun: 'pers',
-        reflexive: 'perself'
+        reflexive: 'perself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     thon: {
         nominativeSubject: 'thon',
         obliqueObject: 'thon',
         possessiveDeterminer: 'thons',
         possessivePronoun: 'thons',
-        reflexive: 'thonself'
+        reflexive: 'thonself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     jee: {
         nominativeSubject: 'jee',
         obliqueObject: 'jem',
         possessiveDeterminer: 'jeir',
         possessivePronoun: 'jeirs',
-        reflexive: 'jemself'
+        reflexive: 'jemself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     ve: {
         nominativeSubject: 've',
         obliqueObject: 'ver',
         possessiveDeterminer: 'vis',
         possessivePronoun: 'vis',
-        reflexive: 'verself'
+        reflexive: 'verself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     xe: {
         nominativeSubject: 'xe',
         obliqueObject: 'xem',
         possessiveDeterminer: 'xyr',
         possessivePronoun: 'xyrs',
-        reflexive: 'xemself'
+        reflexive: 'xemself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     ze: {
         nominativeSubject: 'ze',
         obliqueObject: 'mer',
         possessiveDeterminer: 'zer',
         possessivePronoun: 'zers',
-        reflexive: 'zemself'
+        reflexive: 'zemself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     },
     zhe: {
         nominativeSubject: 'zhe',
         obliqueObject: 'zhim',
         possessiveDeterminer: 'zher',
         possessivePronoun: 'zhers',
-        reflexive: 'zhimself'
+        reflexive: 'zhimself',
+        generic: 'person',
+        honorific: 'mx',
+        junior: 'child',
     }
 };
 export default en;

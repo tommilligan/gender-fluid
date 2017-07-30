@@ -55,20 +55,20 @@ gender.fluidize(specific)
 
 ##### English (`en`)
 
-| | nominative<br/>(subject) | oblique<br/>(object) | possessive<br/>determiner | possessive<br/>pronoun | reflexive |
-| --- | --- | --- | --- | --- | --- |
-|`he` | he | him | his | his | himself |
-|`she` | she | her | her | hers | herself |
-|`they` | they | them | their | theirs | themself |
-|`e` | e | em | eir | eirs | eirself |
-|`ey` | ey | em | eir | eirs | emself |
-|`tho` | tho | thor | thors | thor | thongself |
-|`hu` | hu | hum | hus | hus | humself |
-|`per` | per | per | per | pers | perself |
-|`thon` | thon | thon | thons | thons | thonself |
-|`jee` | jee | jem | jeir | jeirs | jemself |
-|`ve` | ve | ver | vis | vis | verself |
-|`xe` | xe | xem | xyr | xyrs | xemself |
-|`ze` | ze | mer | zer | zers | zemself |
-|`zhe` | zhe | zhim | zher | zhers | zhimself |
+| | nominative<br/>(subject) | oblique<br/>(object) | possessive<br/>determiner | possessive<br/>pronoun | reflexive | generic | honorific | junior |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|`he` | he | him | his | his | himself | man | mr | boy |
+|`she` | she | her | her | hers | herself | woman | ms, mrs, miss | girl |
+|`they` | they | them | their | theirs | themself | person | mx | child |
+|`e` | e | em | eir | eirs | eirself | person | mx | child |
+|`ey` | ey | em | eir | eirs | emself | person | mx | child |
+|`tho` | tho | thor | thors | thor | thongself | person | mx | child |
+|`hu` | hu | hum | hus | hus | humself | person | mx | child |
+|`per` | per | per | per | pers | perself | person | mx | child |
+|`thon` | thon | thon | thons | thons | thonself | person | mx | child |
+|`jee` | jee | jem | jeir | jeirs | jemself | person | mx | child |
+|`ve` | ve | ver | vis | vis | verself | person | mx | child |
+|`xe` | xe | xem | xyr | xyrs | xemself | person | mx | child |
+|`ze` | ze | mer | zer | zers | zemself | person | mx | child |
+|`zhe` | zhe | zhim | zher | zhers | zhimself | person | mx | child |
 
