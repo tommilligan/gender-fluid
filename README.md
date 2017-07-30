@@ -42,12 +42,12 @@ gender.fluidize(specific)
 
 Conversion is possible in any direction (although quality of grammer will vary).
 ```javascript
-// ES2015 syntax
+// vanilla syntax
 var specific = 'He should talk to them about feminism.';
 var gender = new GenderFluid('she', ['he', 'they']);
 gender.fluidize(specific)
-    .then(function(fluid){
-        console.log(fluid)
+    .then(function(fluid) {
+        console.log(fluid)  // She should talk to her about feminism.
     });
 ```
 
