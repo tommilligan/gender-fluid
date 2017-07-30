@@ -56,25 +56,21 @@ describe('index.js', function(){
                     return expect(gn.fluidizeNominativeSubjects(text)).to.eventually.equal(expected);
                 });
             });
-
             it('should return fluidized oblique objects for gender specific statements', function(){
                 var text = 'I spoke to him that morning and told him that the fervor quotient was the way to go.';
                 var expected = 'I spoke to them that morning and told them that the fervor quotient was the way to go.';
                 return expect(gn.fluidizeObliqueObjects(text)).to.eventually.equal(expected);
             });
-
             it('should return fluidized possessive determiners for gender specific statements', function(){
                 var text = 'His back was so freaking wide that he looked like the Hulk from the rear.';
                 var expected = 'Their back was so freaking wide that he looked like the Hulk from the rear.';
                 return expect(gn.fluidizePossessiveDeterminers(text)).to.eventually.equal(expected);
             });
-
             it('should return fluidized possessive pronouns for gender specific statements', function(){
                 var text = 'I took the toy away from him and told him that it was hers and that he was not to touch it again.';
                 var expected = 'I took the toy away from him and told him that it was theirs and that he was not to touch it again.';
                 return expect(gn.fluidizePossessivePronouns(text)).to.eventually.equal(expected);
             });
-
             it('should return fluidized reflexives for gender specific statements', function(){
                 var text = 'She looked into the mirror and admired herself every morning ... she loved being a Mermaid.';
                 var expected = 'She looked into the mirror and admired themself every morning ... she loved being a Mermaid.';
@@ -86,19 +82,29 @@ describe('index.js', function(){
                 var expected = 'The person loved the person very much - but what could he say to her?';
                 return expect(gn.fluidizeGenerics(text)).to.eventually.equal(expected);
             });
-
-            it('should return fluidized honorifics for gender specific statements', function(){
-                var text = 'The letter was addressed to Mr. Smith, but they went ahead and opened it anyway.';
-                var expected = 'The letter was addressed to Mx. Smith, but they went ahead and opened it anyway.';
-                return expect(gn.fluidizeHonorifics(text)).to.eventually.equal(expected);
+            describe('fluidize honorifics', function(){
+                it('should return fluidized honorifics for gender specific statements', function(){
+                    var text = 'The letter was addressed to Mr. Smith, but they went ahead and opened it anyway.';
+                    var expected = 'The letter was addressed to Mx. Smith, but they went ahead and opened it anyway.';
+                    return expect(gn.fluidizeHonorifics(text)).to.eventually.equal(expected);
+                });
+                it('should handle fluidizing from multiple options', function(){
+                    var text = 'The letter was addressed to Mrs. Smith, but Miss. Brown went ahead and opened it anyway.';
+                    var expected = 'The letter was addressed to Mx. Smith, but Mx. Brown went ahead and opened it anyway.';
+                    return expect(gn.fluidizeHonorifics(text)).to.eventually.equal(expected);
+                });
+                it('should handle fluidizing to multiple options', function(){
+                    var gn = new Gender('she', ['he', 'they']);
+                    var text = 'The letter was addressed to Mr. Smith, but Mx. Brown went ahead and opened it anyway.';
+                    var expected = 'The letter was addressed to Ms. Smith, but Ms. Brown went ahead and opened it anyway.';
+                    return expect(gn.fluidizeHonorifics(text)).to.eventually.equal(expected);
+                });
             });
-
             it('should return fluidized juniors for gender specific statements', function(){
                 var text = 'She never liked the other children in the group really.';
                 var expected = 'She never liked the other children in the group really.';
                 return expect(gn.fluidizeJuniors(text)).to.eventually.equal(expected);
             });
-
             describe('fluidize', function(){
                 it('should fluidize multiple pronoun type in sequence', function(){
                     // Currently fails as "Her eyes" is not converted to "Their eyes" - posessives are after objects, so they are not handled correctly. Use Stanford Core NLP?

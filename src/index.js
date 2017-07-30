@@ -32,14 +32,21 @@ module.exports = class GenderFluid {
         }
 
         pronounTypes.map(pronounType => {
-            var residues = this.residueSetKeys.map(residueSetKey => {
+            var lumpyResidues = this.residueSetKeys.map(residueSetKey => {
                 try {
-                    return local[residueSetKey][pronounType];
+                    var residues = local[residueSetKey][pronounType];
                 } catch (ex) {
                     throw new Error(`Could not load '${pronounType}' from set '${residueSetKey}'`);
                 }
+
+                // If there is just a single string, convert to an array
+                if (typeof residues === 'string' || residues instanceof String) {
+                    residues = [residues];
+                }
+                return residues;
             });
-            patterns[pronounType] = eitherWordPattern(residues);
+            var flatResidues = [].concat.apply([], lumpyResidues);
+            patterns[pronounType] = eitherWordPattern(flatResidues);
         });
         return patterns;
     }

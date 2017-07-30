@@ -16,7 +16,7 @@ const en = {
         possessivePronoun: 'hers',
         reflexive: 'herself',
         generic: 'woman',
-        honorific: 'ms',
+        honorific: ['ms', 'mrs', 'miss'],
         junior: 'girl',
     },
     they: {
