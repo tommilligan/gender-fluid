@@ -1,26 +1,23 @@
 {
-  "name": "gender-neutral",
-  "version": "0.1.0",
-  "description": "A node module that neutralizes gender specific text.",
+  "name": "gender-fluid",
+  "version": "0.0.1",
+  "description": "Change the genderization of text",
   "main": "./lib/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register -R spec",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register -R dot test/",
-    "compile": "babel src -d lib",
-    "postinstall": "postinstall-build lib --script compile"
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register -R spec test/",
+    "compile": "babel src -d lib"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tobius/gender-neutral.git"
+    "url": "git://github.com/tommilligan/gender-fluid.git"
   },
-  "author": "Toby Miller <tobius.miller@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "postinstall-build": "^5.0.1"
-  },
+  "author": "Tom Milligan <code@tommilligan.net>",
+  "license": "Apache-2.0",
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",

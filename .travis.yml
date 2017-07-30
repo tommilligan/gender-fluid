@@ -13,6 +13,13 @@ script:
   - npm run coverage
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+deploy:
+  - provider: npm
+    email: code@tommilligan.net
+    api_key: $NPM_API_KEY
+    on:
+      branch: master
+      tags: true
 branches:
   except:
     - /v\d+\.\d+\.\d+/
