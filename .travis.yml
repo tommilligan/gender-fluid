@@ -21,8 +21,5 @@ deploy:
       branch: master
       tags: true
       condition: $TRAVIS_NODE_VERSION = 7
-branches:
-  except:
-    - /v\d+\.\d+\.\d+/
 notifications:
   email: false
