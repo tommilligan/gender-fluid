@@ -1,3 +1,5 @@
+// @flow
+
 import en from './en.js';
 
 var filters = {

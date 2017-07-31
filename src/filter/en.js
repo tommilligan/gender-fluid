@@ -1,3 +1,5 @@
+// @flow
+
 const en = {
     he: {
         nominativeSubject: 'he',

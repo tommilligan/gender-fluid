@@ -1,20 +1,12 @@
-/**
- * Return a string representation of a RegExp pattern, which will match any of the words given
- *
- * @param {Array} words
- */
-var eitherWordPattern = (words) => {
+// @flow
+
+// Return a string representation of a RegExp pattern, which will match any of the words given
+var eitherWordPattern = (words: string[]) => {
     return `\\b(?:${words.join('|')})\\b`;
 };
 
-/**
- * perform a safe regexp replacement that preserves capitalization
- *
- * @param {String} text
- * @param {String} find string regex pattern
- * @param {String|Array} replace if not a string, will assume an array and try and use the first item
- */
-var safeReplace = (text, find, replace) => {        
+// Perform a safe regexp replacement that preserves capitalization
+var safeReplace = (text: string, find: string, replace: string) => {        
     const pattern = new RegExp(find, 'gi');
     var replacedText = text.replace(pattern, (match, specific) => {
         var isTextCapitalized = /[A-Z]/.test(text.substring(specific, specific + 1));
