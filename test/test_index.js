@@ -45,14 +45,14 @@ describe('index.js', function(){
                     var expected = 'They solved the problem by combining the proper solvents according to the prescribed ratio.';
                     return expect(gn.fluidizeNominativeSubjects(text)).to.eventually.equal(expected);
                 });
-                it('should do the same for past tense', function(){
+                it('should retain singular grammar for past tense', function(){
                     var text = 'Yesterday he was swimming.';
-                    var expected = 'Yesterday they were swimming.';
+                    var expected = 'Yesterday they was swimming.';
                     return expect(gn.fluidizeNominativeSubjects(text)).to.eventually.equal(expected);
                 });
-                it('should do the same for present tense', function(){
+                it('should retain singular grammar for present tense', function(){
                     var text = 'Today he is swimming.';
-                    var expected = 'Today they are swimming.';
+                    var expected = 'Today they is swimming.';
                     return expect(gn.fluidizeNominativeSubjects(text)).to.eventually.equal(expected);
                 });
             });

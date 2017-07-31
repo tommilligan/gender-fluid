@@ -74,10 +74,6 @@ module.exports = class GenderFluid {
         return new Promise((resolve) => {
             var filtrate = this.filtrates.nominativeSubject;
             var fluidizedText = safeReplace(text, this.patterns.nominativeSubject, filtrate);
-            var past = new RegExp(`\\b(${filtrate}) was\\b`, 'gi');
-            var present = new RegExp(`\\b(${filtrate}) is\\b`, 'gi');
-            fluidizedText = fluidizedText.replace(past, '$1 were');
-            fluidizedText = fluidizedText.replace(present, '$1 are');
             resolve(fluidizedText);
         });
     }
