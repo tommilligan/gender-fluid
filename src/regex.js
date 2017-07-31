@@ -14,11 +14,7 @@ var eitherWordPattern = (words) => {
  * @param {String} find string regex pattern
  * @param {String|Array} replace if not a string, will assume an array and try and use the first item
  */
-var safeReplace = (text, find, replace) => {
-    if (!(typeof replace === 'string' || replace instanceof String)) {
-        replace = replace[0];
-    }
-        
+var safeReplace = (text, find, replace) => {        
     const pattern = new RegExp(find, 'gi');
     var replacedText = text.replace(pattern, (match, specific) => {
         var isTextCapitalized = /[A-Z]/.test(text.substring(specific, specific + 1));

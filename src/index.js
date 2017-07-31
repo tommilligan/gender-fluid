@@ -59,10 +59,15 @@ module.exports = class GenderFluid {
         pronounTypes.map(pronounType => {
             const local = filters[this.locale];
             try {
-                filtrates[pronounType] = local[this.filtrateSetKey][pronounType];
+                var filtrate = local[this.filtrateSetKey][pronounType];
             } catch (ex) {
                 throw new Error(`Could not load '${pronounType}' from set '${this.filtrateSetKey}'`);
             }
+
+            if (!(typeof filtrate === 'string' || filtrate instanceof String)) {
+                filtrate = filtrate[0];
+            }
+            filtrates[pronounType] = filtrate;
         });
         return filtrates;
     }
