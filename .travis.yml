@@ -14,6 +14,7 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 deploy:
+  - skip_cleanup: true
   - provider: npm
     email: code@tommilligan.net
     api_key: $NPM_API_KEY
