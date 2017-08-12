@@ -1,6 +1,6 @@
 {
   "name": "gender-fluid",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Change the genderization of text",
   "main": "./lib/index.js",
   "directories": {
