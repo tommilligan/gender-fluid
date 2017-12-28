@@ -1,7 +1,9 @@
 // @flow
 
-import filters from './filter/index.js';
+import globalFilters from './filter/index.js';
+import type {genderFilter, localFilters} from './filter/index.js';
 import {eitherWordPattern, safeReplace} from './regex.js';
+import {requireMapKey} from './utils.js';
 
 const pronounTypes = ['nominativeSubject', 'obliqueObject', 'possessiveDeterminer', 'possessivePronoun', 'reflexive', 'generic', 'honorific', 'junior'];
 
@@ -9,16 +11,44 @@ module.exports = class GenderFluid {
     locale: string;
     filtrateSetKey: string;
     residueSetKeys: string[];
-    patterns: any;
-    filtrates: any;
+    localFilters: localFilters;
+    filtrateSet: genderFilter;
+    mappings: [string, string][];
     
     constructor (filtrateSetKey: string = 'they', residueSetKeys: string[] = ['he', 'she'], locale: string = 'en') {
         this.locale = locale;
         this.filtrateSetKey = filtrateSetKey;
         this.residueSetKeys = residueSetKeys;
 
-        this.patterns = this.generatePatterns();
-        this.filtrates = this.generateFiltrates();
+        this.localFilters = requireMapKey(globalFilters, this.locale, `Unknown locale '${this.locale}'`);
+        this.filtrateSet = requireMapKey(this.localFilters, this.filtrateSetKey, `Unknown gender filter '${this.filtrateSetKey}'`);
+
+        this.mappings = this.generateMappings();
+    }
+
+    
+
+    generateMappings = (): [string, string][] => {
+
+        const mappings = this.filtrateSet
+
+        var filtrates = {};
+        pronounTypes.map(pronounType => {
+            const local = filters[this.locale];
+            try {
+                var filtrate = local[this.filtrateSetKey][pronounType];
+            } catch (ex) {
+                throw new Error(`Could not load '${pronounType}' from set '${this.filtrateSetKey}'`);
+            }
+
+            if (!(typeof filtrate === 'string' || filtrate instanceof String)) {
+                filtrate = filtrate[0];
+            }
+            filtrates[pronounType] = filtrate;
+        });
+        return filtrates;
+
+        return mappings;
     }
 
     // String regex patters to find
